@@ -5,7 +5,6 @@ export default (state = [], action) => {
         case types.FETCHING_LIST_USERS_SUCCESS:
             return action.data;
         case types.FETCHING_LIST_USERS_FAIL:
-            console.log(types.FETCHING_LIST_USERS_FAIL);
             return state;
         default:
             return { ...state };

@@ -1,7 +1,7 @@
 import * as types from '../constants/ActionType';
 
-export const fetchListUsers = () => {
-    return { type: types.FETCHING_LIST_USERS }
+export const fetchListUsers = (page) => {
+    return { type: types.FETCHING_LIST_USERS, page }
 }
 
 export const actLogin = (email, password) => {

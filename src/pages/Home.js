@@ -2,37 +2,28 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchListUsers } from '../actions';
+import ListUsers from '../components/ListUsers';
+import Pagination from '../components/Pagination';
 
 class Home extends Component {
 
     constructor(props) {
         super(props);
-        const users = this.props.fetchListUsers();
-        console.log(users)
-    }
-
-    loop_user() {
-        if (this.props.users.data) {
-            const element = this.props.users.data.map((item) => {
-                return (
-                    <li key={ item.id }>
-                        <p>Email: { item.email }</p>
-                        <p>FullName: { item.first_name } {item.last_name}</p>
-                        <p><img src={ item.avatar } /></p>
-                    </li>
-                )
-            })
-            return element;
-        }
+        this.props.fetchListUsers(1);
+        this.state = { referrer: null }
     }
 
     render() {
+        console.log(this.props.match)
+        let currentPage = 0
+        if (this.props.match) {
+            currentPage = this.props.match.params.page -1;
+        }
+        console.log(currentPage);
         return (
             <div className="main-content">
                 <h2>Home</h2>
-                <ul>
-                    {this.loop_user()}
-                </ul>
+                <ListUsers currentPage={currentPage} referrer={this.state.referrer} />
             </div>
         )
     }

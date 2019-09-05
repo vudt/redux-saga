@@ -35,6 +35,9 @@ ul li a.active {text-decoration: underline}
 .frmLogin {width: 450px; margin-top: 45px}
 .invalid-feedback {color: #dc3545}
 .is-invalid {border-color: #dc3545 !important}
+#list_users thead tr th:nth-child(2) {width: 120px}
+#list_users tr td:nth-child(2) img {width: 80px}
+#nav-pagination .pagination {display: flex; justify-content: center}
 
 @keyframes App-logo-spin {
   from {

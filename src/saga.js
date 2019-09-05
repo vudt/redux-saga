@@ -4,7 +4,7 @@ import getUsers from './api/users';
 
 function* fetchUsers(action) {
     try {
-        const data = yield getUsers();
+        const data = yield getUsers(action.page);
         yield put({ type: types.FETCHING_LIST_USERS_SUCCESS, data })
     } catch (e) {
         yield put({ type: types.FETCHING_LIST_USERS_FAIL })

@@ -24,6 +24,7 @@ class App extends React.Component {
   prepare_data_route() {
     let routes = [
       { path: '/', exact: true, main: () => <Home /> },
+      { path: '/page/:page', exact: true, main: ({match}) => <Home match={match} /> },
       { path: '/about', exact: true, main: () => <About /> },
       { path: '/news', exact: false, main: ({match}) => <News match={match} /> },
       { path: '/contact', exact: true, main: () => <Contact /> },
