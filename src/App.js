@@ -9,6 +9,7 @@ import Account from './pages/Account';
 import Notfound from './pages/Notfound';
 import Menu from './components/Menu';
 import Login from './pages/Login';
+import SingleUser from './pages/SingleUser';
 
 
 // function PrivateRoute({component: Component, ...rest}) {
@@ -30,7 +31,9 @@ class App extends React.Component {
       { path: '/contact', exact: true, main: () => <Contact /> },
       { path: '/login', exact: true, main: () => <Login /> },
       { path: '/account', exact: true, main: () => <Account /> },
+      { path: '/user/:id', exact: true, main: ({match}) => <SingleUser match={match} /> },
       { path: '', exact: false, main: () => <Notfound /> },
+      
     ]
     return routes;
   }

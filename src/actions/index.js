@@ -4,6 +4,11 @@ export const fetchListUsers = (page) => {
     return { type: types.FETCHING_LIST_USERS, page }
 }
 
+export const fetchUser = (id) => {
+    console.log(id)
+    return { type: types.FETCHING_USER, id}
+}
+
 export const actLogin = (email, password) => {
     return {
         type: types.USER_LOGIN,

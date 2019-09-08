@@ -1,6 +1,6 @@
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import * as types from './constants/ActionType';
-import getUsers from './api/users';
+import { getUsers, getUser } from './api/users';
 
 function* fetchUsers(action) {
     try {
@@ -11,8 +11,18 @@ function* fetchUsers(action) {
     }
 }
 
+function* fetchUserDetail(action) {
+    try {
+        const data = yield getUser(action.id);
+        yield put({ type: types.FETCHING_USER_SUCCESS, data })
+    } catch (e) {
+        yield put({ type: types.FETCHING_USER_FAIL })
+    }
+}
+
 function* userSaga() {
     yield takeEvery(types.FETCHING_LIST_USERS, fetchUsers)
+    yield takeEvery(types.FETCHING_USER, fetchUserDetail)
 }
 
 export default userSaga;

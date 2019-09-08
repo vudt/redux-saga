@@ -9,31 +9,61 @@ class Home extends Component {
 
     constructor(props) {
         super(props);
+        console.log('constructor');
+    }
+
+    componentWillMount(){
         this.props.fetchListUsers(1);
-        this.state = { referrer: null }
+        console.log('componentWillMount');
+    }
+
+    componentDidMount() {
+        console.log('componentDidMount');
+        
+        // console.log(this.props.match.params)   
+    }
+
+    componentDidUpdate() {
+        
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log('componentWillReceiveProps')
+        if (nextProps.users_data) {
+            this.setState({ userData: nextProps.users_data })
+        }
     }
 
     render() {
-        console.log(this.props.match)
         let currentPage = 0
         if (this.props.match) {
             currentPage = this.props.match.params.page -1;
         }
-        console.log(currentPage);
+        // console.log(currentPage);
         return (
             <div className="main-content">
                 <h2>Home</h2>
-                <ListUsers currentPage={currentPage} referrer={this.state.referrer} />
+                <ListUsers currentPage={currentPage} />
             </div>
         )
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
+    // console.log(ownProps)
     return { users: state.users }
 }
 
-function mapDispatchToProps(dispatch) {
+
+function mapDispatchToProps(dispatch, ownProps) {
+    // console.log(ownProps.match);
+    let currentPage = !ownProps.match ? 1 : ownProps.match.params.page
+    // console.log(currentPage);
+    // return {
+    //     fetchListUsers: (currentPage) => {
+    //         dispatch(fetchListUsers(currentPage));
+    //     }
+    // }
     return bindActionCreators({
         fetchListUsers: fetchListUsers
     }, dispatch)

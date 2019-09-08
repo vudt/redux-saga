@@ -4,6 +4,11 @@ import Category from '../components/Category';
 import ListArticles from '../components/ListArticles';
 class News extends Component {
 
+    constructor(props) {
+        super(props)
+        console.log('constructor')
+    }
+
     _prepare_menu_item() {
         let data = [
             { to: 'reactjs', title: 'ReactJS' },
@@ -26,6 +31,10 @@ class News extends Component {
             })
         }
         return nav_Link;
+    }
+
+    componentWillReceiveProps(nextProps){
+        console.log('componentWillReceiveProps')
     }
 
     render() {
