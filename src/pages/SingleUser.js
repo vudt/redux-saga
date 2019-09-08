@@ -9,7 +9,6 @@ class SingleUser extends Component {
     constructor(props) {
         super(props)
         this.state = { user_id: this.props.match.params.id, user: null }
-        
     }
 
     componentDidMount(){
@@ -18,23 +17,19 @@ class SingleUser extends Component {
 
     componentWillReceiveProps(nextProps) {   
         if (nextProps.user.data) {
-            console.log(nextProps.user.data)
-            console.log(this.props.user)
             if (this.props.user.data) {
-                if(nextProps.user.data.id !== this.props.user.id) {
-                    this.setState({user: nextProps.user.data});
-                    console.log(nextProps.user.data);
-                } else {
+                if (nextProps.user.data.id === this.props.user.data.id) {
                     this.setState({user: null});
+                    return;
                 }
-            }
-            
+            } 
+            this.setState({user: nextProps.user.data});
         }
     }
 
     render() {
         console.log(this.state.user)
-        let elm = <p>Data not found</p>
+        let elm = <p>Loading...</p>
         if (this.state.user) {
             elm = (
                 <div>
@@ -43,7 +38,8 @@ class SingleUser extends Component {
                     <img src={ this.state.user.avatar } />
                 </div>
             );
-            
+        } else {
+            elm = <p>Data not found.</p>
         }
         return (
            <div> { elm } </div>

@@ -13,13 +13,13 @@ class Home extends Component {
     }
 
     componentWillMount(){
-        this.props.fetchListUsers(1);
+        
         console.log('componentWillMount');
     }
 
     componentDidMount() {
         console.log('componentDidMount');
-        
+        // this.props.fetchListUsers(1);
         // console.log(this.props.match.params)   
     }
 
@@ -28,10 +28,10 @@ class Home extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('componentWillReceiveProps')
-        if (nextProps.users_data) {
-            this.setState({ userData: nextProps.users_data })
-        }
+        console.log(this.props.match)
+        // if (nextProps.users_data) {
+        //     this.setState({ userData: nextProps.users_data })
+        // }
     }
 
     render() {

@@ -25,7 +25,8 @@ class ListUsers extends Component {
                 <td>{item.last_name}</td>
                 <td>{item.email}</td>
                 <td>
-                    <NavLink to={`user/${item.id}`}><i className="fas fa-edit"></i></NavLink>&nbsp;&nbsp;
+                    <NavLink to={`/user/${item.id}`} className="btn btn-default"><i className="fas fa-eye"></i></NavLink>&nbsp;&nbsp;
+                    <button type="button" className="btn btn-primary"><i className="fas fa-edit"></i></button>&nbsp;&nbsp;
                     <button type="button" className="btn btn-danger"><i className="fas fa-trash"></i></button>
                 </td>
             </tr>
@@ -40,10 +41,30 @@ class ListUsers extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
-        if (nextProps.users_data) {
+        console.log(this.props.match)
+        console.log(this.props.currentPage)
+        console.log(nextProps.currentPage)
+  
+        
+
+        if(this.props.currentPage !== nextProps.currentPage){
+            this.props.fetchListUsers(nextProps.currentPage +1);
+        }
+        if (nextProps.users_data.data) {
             this.setState({ userData: nextProps.users_data })
         }
+    }
+
+    componentDidUpdate(){
+        console.log('componentDidUpdate')
+        console.log(this.props.currentPage)
+        // this.props.fetchListUsers(this.props.currentPage);
+    }
+
+    componentDidMount() {
+        console.log('componentDidMount');
+        this.props.fetchListUsers(this.props.currentPage + 1);
+        // console.log(this.props.match.params)   
     }
 
     handlePageClick(data) {
@@ -56,29 +77,12 @@ class ListUsers extends Component {
 
     render() {
         let element = <tr><td colSpan='5'>No data.</td></tr>
-        let paginationElement = null;
         let paging = null;
        
         console.log(this.state.userData);
         if (this.state.userData) {
             element = this.render_table_users(this.state.userData.data)
             paging = <Pagination totalPages={this.state.userData.total_pages} pageNumber={this.state.userData.page} />;
-            paginationElement = (
-                <ReactPaginate
-                    previousLabel={"← Previous"}
-                    nextLabel={"Next →"}
-                    breakLabel={<span className="gap">...</span>}
-                    pageCount={this.state.userData.total_pages}
-                    onPageChange={this.handlePageClick}
-                    forcePage={this.props.currentPage}
-                    containerClassName={"pagination"}
-                    previousLinkClassName={"previous_page"}
-                    nextLinkClassName={"next_page"}
-                    disabledClassName={"disabled"}
-                    activeClassName={"active"}
-                    hrefBuilder={this.prepareHref}
-                />
-            );
         }
         return (
             <div className="wrap_tbl_users table-responsive">
@@ -95,17 +99,12 @@ class ListUsers extends Component {
                     </thead>
                     <tbody>{element}</tbody>
                 </table>
-                {paginationElement}
-
                 <nav id="nav-pagination">
                     <ul className="pagination justify-content-center">
                         <li id="first-page" className="page-item"><NavLink to="/page/1" activeClassName="active">First</NavLink></li>
                         <li className="page-item"><NavLink to="/page/1" activeClassName="active">1</NavLink></li>
                         <li className="page-item"><NavLink to="/page/2" activeClassName="active">2</NavLink></li>
-                        <li className="page-item"><NavLink to="/page/3" activeClassName="active">3</NavLink></li>
-                        <li className="page-item"><NavLink to="/page/4" activeClassName="active">4</NavLink></li>
-                        <li className="page-item"><NavLink to="/page/5" activeClassName="active">5</NavLink></li>
-                        <li id="last-page" className="page-item"><NavLink to="/page/5" activeClassName="active">Last</NavLink></li>
+                        <li id="last-page" className="page-item"><NavLink to="/page/2" activeClassName="active">Last</NavLink></li>
                     </ul>
                 </nav>
             </div>
