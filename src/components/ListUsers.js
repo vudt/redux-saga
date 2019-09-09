@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchListUsers } from '../actions';
-// import Pagination from './Pagination';
+import Pagination from './Pagination';
 import ReactPaginate from 'react-paginate';
-import Pagination from 'react-router-pagination'
+// import Pagination from 'react-router-pagination'
 import { BrowserRouter as Router, Route, Link, NavLink, Redirect } from "react-router-dom";
 
 class ListUsers extends Component {
@@ -13,7 +13,7 @@ class ListUsers extends Component {
         super(props)
         this.state = { userData: null }
         console.log(this.state)
-        this.handlePageClick = this.handlePageClick.bind(this)
+        // this.handlePageClick = this.handlePageClick.bind(this)
     }
 
     loop_user_item(item) {
@@ -41,48 +41,30 @@ class ListUsers extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(this.props.match)
-        console.log(this.props.currentPage)
-        console.log(nextProps.currentPage)
-  
-        
-
-        if(this.props.currentPage !== nextProps.currentPage){
-            this.props.fetchListUsers(nextProps.currentPage +1);
+        if (this.props.currentPage !== nextProps.currentPage) {
+            this.props.fetchListUsers(nextProps.currentPage);
         }
         if (nextProps.users_data.data) {
             this.setState({ userData: nextProps.users_data })
         }
     }
 
-    componentDidUpdate(){
+    componentDidUpdate() {
         console.log('componentDidUpdate')
-        console.log(this.props.currentPage)
-        // this.props.fetchListUsers(this.props.currentPage);
     }
 
     componentDidMount() {
-        console.log('componentDidMount');
-        this.props.fetchListUsers(this.props.currentPage + 1);
-        // console.log(this.props.match.params)   
-    }
-
-    handlePageClick(data) {
-        const link = `/page/${data.selected + 1}`
-    }
-
-    prepareHref(data) {
-        return `/page/${data}`
+        this.props.fetchListUsers(this.props.currentPage); 
     }
 
     render() {
         let element = <tr><td colSpan='5'>No data.</td></tr>
         let paging = null;
-       
+
         console.log(this.state.userData);
         if (this.state.userData) {
             element = this.render_table_users(this.state.userData.data)
-            paging = <Pagination totalPages={this.state.userData.total_pages} pageNumber={this.state.userData.page} />;
+            paging = <Pagination totalPages={this.state.userData.total_pages} pageNumber={this.props.currentPage} />;
         }
         return (
             <div className="wrap_tbl_users table-responsive">
@@ -99,14 +81,7 @@ class ListUsers extends Component {
                     </thead>
                     <tbody>{element}</tbody>
                 </table>
-                <nav id="nav-pagination">
-                    <ul className="pagination justify-content-center">
-                        <li id="first-page" className="page-item"><NavLink to="/page/1" activeClassName="active">First</NavLink></li>
-                        <li className="page-item"><NavLink to="/page/1" activeClassName="active">1</NavLink></li>
-                        <li className="page-item"><NavLink to="/page/2" activeClassName="active">2</NavLink></li>
-                        <li id="last-page" className="page-item"><NavLink to="/page/2" activeClassName="active">Last</NavLink></li>
-                    </ul>
-                </nav>
+                {paging}
             </div>
         );
     }

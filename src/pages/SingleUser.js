@@ -5,50 +5,53 @@ import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom
 import { fetchUser } from './../actions';
 
 class SingleUser extends Component {
-    
+
     constructor(props) {
         super(props)
-        this.state = { user_id: this.props.match.params.id, user: null }
+        this.state = { user_id: this.props.match.params.id, user: null, isFetching: false }
+        console.log(this.state)
     }
 
-    componentDidMount(){
-        this.props.fetchUser(this.state.user_id);
+    componentDidMount() {
+        console.log('componentDidMount');
+        setTimeout(() => {this.props.fetchUser(this.state.user_id)}, 500)
+        // this.props.fetchUser(this.state.user_id);
     }
 
-    componentWillReceiveProps(nextProps) {   
-        if (nextProps.user.data) {
-            if (this.props.user.data) {
-                if (nextProps.user.data.id === this.props.user.data.id) {
-                    this.setState({user: null});
-                    return;
-                }
-            } 
-            this.setState({user: nextProps.user.data});
+    componentWillReceiveProps(nextProps) {
+        console.log('componentWillReceiveProps');
+        this.setState({ user: null });
+        if (nextProps.user) {
+            this.setState({ user: nextProps.user, isFetching: nextProps.isFetching });
         }
     }
 
     render() {
-        console.log(this.state.user)
+        console.log(this.state)
+        console.log(this.props)
         let elm = <p>Loading...</p>
-        if (this.state.user) {
-            elm = (
-                <div>
-                    <h4>{ this.state.user.first_name } { this.state.user.last_name }</h4>
-                    <h5>{ this.state.user.email }</h5>
-                    <img src={ this.state.user.avatar } />
-                </div>
-            );
-        } else {
-            elm = <p>Data not found.</p>
+        if (this.state.isFetching === true) {
+            if (this.state.user) {
+                elm = (
+    
+                    <div>
+                        <h4>{this.state.user.first_name} {this.state.user.last_name}</h4>
+                        <h5>{this.state.user.email}</h5>
+                        <img src={this.state.user.avatar} />
+                    </div>
+                );
+            } else {
+                elm = <p>Data not found.</p>
+            }
         }
         return (
-           <div> { elm } </div>
+            <div> {elm} </div>
         )
     }
 }
 
 function mapStateToProps(state) {
-    return { user: state.user }
+    return { user: state.user.data, isFetching: state.user.isFetching }
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
@@ -57,4 +60,4 @@ function mapDispatchToProps(dispatch, ownProps) {
     }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (SingleUser);
+export default connect(mapStateToProps, mapDispatchToProps)(SingleUser);

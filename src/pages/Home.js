@@ -28,18 +28,17 @@ class Home extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(this.props.match)
+        // console.log(this.props.match)
         // if (nextProps.users_data) {
         //     this.setState({ userData: nextProps.users_data })
         // }
     }
 
     render() {
-        let currentPage = 0
+        let currentPage = 1
         if (this.props.match) {
-            currentPage = this.props.match.params.page -1;
+            currentPage = this.props.match.params.page;
         }
-        // console.log(currentPage);
         return (
             <div className="main-content">
                 <h2>Home</h2>
@@ -56,14 +55,6 @@ function mapStateToProps(state, ownProps) {
 
 
 function mapDispatchToProps(dispatch, ownProps) {
-    // console.log(ownProps.match);
-    let currentPage = !ownProps.match ? 1 : ownProps.match.params.page
-    // console.log(currentPage);
-    // return {
-    //     fetchListUsers: (currentPage) => {
-    //         dispatch(fetchListUsers(currentPage));
-    //     }
-    // }
     return bindActionCreators({
         fetchListUsers: fetchListUsers
     }, dispatch)

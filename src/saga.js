@@ -13,10 +13,10 @@ function* fetchUsers(action) {
 
 function* fetchUserDetail(action) {
     try {
-        const data = yield getUser(action.id);
-        yield put({ type: types.FETCHING_USER_SUCCESS, data })
+        const result = yield getUser(action.id);
+        yield put({ type: types.FETCHING_USER_SUCCESS, data: result.data, isFetching: true })
     } catch (e) {
-        yield put({ type: types.FETCHING_USER_FAIL })
+        yield put({ type: types.FETCHING_USER_FAIL, isFetching: false })
     }
 }
 
