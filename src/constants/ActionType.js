@@ -9,3 +9,5 @@ export const FETCHING_USER_FAIL = 'FETCHING_USER_FAIL';
 
 export const USER_LOGIN = 'USER_LOGIN';
 export const USER_LOGOUT = 'USER_LOGOUT';
+export const TOGGLE_MODAL = 'TOGGLE_MODAL';
+export const CLOSE_MODAL = 'CLOSE_MODAL';

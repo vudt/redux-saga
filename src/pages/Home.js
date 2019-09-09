@@ -4,16 +4,20 @@ import { bindActionCreators } from 'redux';
 import { fetchListUsers } from '../actions';
 import ListUsers from '../components/ListUsers';
 import Pagination from '../components/Pagination';
+import ModalUser from '../components/ModalUser';
+
 
 class Home extends Component {
 
     constructor(props) {
         super(props);
-        console.log('constructor');
+        this.state = { showModal: false }
+        this.close = this.close.bind(this)
+        this.open = this.open.bind(this)
     }
 
-    componentWillMount(){
-        
+    componentWillMount() {
+
         console.log('componentWillMount');
     }
 
@@ -24,7 +28,7 @@ class Home extends Component {
     }
 
     componentDidUpdate() {
-        
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -32,6 +36,15 @@ class Home extends Component {
         // if (nextProps.users_data) {
         //     this.setState({ userData: nextProps.users_data })
         // }
+    }
+
+    close() {
+        console.log(this.state)
+        this.setState({ showModal: false });
+    }
+
+    open() {
+        this.setState({ showModal: true });
     }
 
     render() {
@@ -43,13 +56,13 @@ class Home extends Component {
             <div className="main-content">
                 <h2>Home</h2>
                 <ListUsers currentPage={currentPage} />
+                <ModalUser />
             </div>
         )
     }
 }
 
 function mapStateToProps(state, ownProps) {
-    // console.log(ownProps)
     return { users: state.users }
 }
 

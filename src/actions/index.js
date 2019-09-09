@@ -9,6 +9,10 @@ export const fetchUser = (id) => {
     return { type: types.FETCHING_USER, id}
 }
 
+export const actToggleModal = (status) => {
+    return { type: types.TOGGLE_MODAL, status: status }
+}
+
 export const actLogin = (email, password) => {
     return {
         type: types.USER_LOGIN,

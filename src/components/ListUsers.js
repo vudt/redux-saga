@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchListUsers } from '../actions';
+import { fetchListUsers, actToggleModal, fetchUser } from '../actions';
 import Pagination from './Pagination';
 import ReactPaginate from 'react-paginate';
-// import Pagination from 'react-router-pagination'
 import { BrowserRouter as Router, Route, Link, NavLink, Redirect } from "react-router-dom";
 
 class ListUsers extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { userData: null }
+        this.state = { userData: null, showModal: this.props.showModal }
         console.log(this.state)
+        console.log(this.props)
         // this.handlePageClick = this.handlePageClick.bind(this)
+        this.openModal = this.openModal.bind(this);
     }
 
     loop_user_item(item) {
@@ -26,11 +27,16 @@ class ListUsers extends Component {
                 <td>{item.email}</td>
                 <td>
                     <NavLink to={`/user/${item.id}`} className="btn btn-default"><i className="fas fa-eye"></i></NavLink>&nbsp;&nbsp;
-                    <button type="button" className="btn btn-primary"><i className="fas fa-edit"></i></button>&nbsp;&nbsp;
+                    <button type="button" className="btn btn-primary" onClick={ () => {this.openModal(item.id)} } ><i className="fas fa-edit"></i></button>&nbsp;&nbsp;
                     <button type="button" className="btn btn-danger"><i className="fas fa-trash"></i></button>
                 </td>
             </tr>
         )
+    }
+
+    openModal(id) {
+        this.props.actToggleModal(!this.state.showModal);
+        this.props.fetchUser(id);
     }
 
     render_table_users(users) {
@@ -47,10 +53,6 @@ class ListUsers extends Component {
         if (nextProps.users_data.data) {
             this.setState({ userData: nextProps.users_data })
         }
-    }
-
-    componentDidUpdate() {
-        console.log('componentDidUpdate')
     }
 
     componentDidMount() {
@@ -88,12 +90,14 @@ class ListUsers extends Component {
 }
 
 function mapStateToProps(state) {
-    return { users_data: state.users }
+    return { users_data: state.users, showModal: state.showModal, user: state.user.data }
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        fetchListUsers: fetchListUsers
+        fetchListUsers: fetchListUsers,
+        fetchUser: fetchUser,
+        actToggleModal: actToggleModal
     }, dispatch)
 }
 
