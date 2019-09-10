@@ -9,7 +9,6 @@ export const fetchListUsers = (page) => {
 }
 
 export const fetchUser = (id) => {
-    console.log(id)
     return { type: types.FETCHING_USER, id}
 }
 

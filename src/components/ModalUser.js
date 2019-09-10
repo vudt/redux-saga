@@ -18,8 +18,8 @@ class ModalUser extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
-        this.setState({ user: null, showModal: nextProps.showModal })
+        // console.log(nextProps);
+        this.setState({ showModal: nextProps.showModal })
         if (nextProps.user && nextProps.showModal === true) {
             this.setState({ user: nextProps.user, isFetching: nextProps.isFetching })
         }
@@ -42,7 +42,7 @@ class ModalUser extends Component {
     }
 
     render() {
-        console.log(this.state.user)
+        console.log(this.state)
         let elm = <p>Loading...</p>
         if (this.state.isFetching === true) {
             elm = this.render_user_information(this.state.user);

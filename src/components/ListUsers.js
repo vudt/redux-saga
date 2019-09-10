@@ -56,8 +56,8 @@ class ListUsers extends Component {
     }
 
     openModal(id) {
-        this.props.actToggleModal(!this.state.showModal);
         this.props.fetchUser(id);
+        this.props.actToggleModal(!this.state.showModal);
     }
 
     render_table_users(users) {

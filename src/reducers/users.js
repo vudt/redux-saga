@@ -7,6 +7,6 @@ export default (state = [], action) => {
         case types.FETCHING_LIST_USERS_FAIL:
             return state;
         default:
-            return { ...state };
+            return state;
     }
 }
