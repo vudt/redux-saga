@@ -30,7 +30,7 @@ ul li {float: left; padding: 0 10px}
 .sidebar ul li {float: none}
 .list-articles li {float: none}
 .content-wrapper {float: left; width: 70%;}
-.main-menu {padding-top: 30px}
+.main-menu {padding-top: 30px; width: auto}
 ul li a.active {text-decoration: underline}
 .frmLogin {width: 450px; margin-top: 45px}
 .invalid-feedback {color: #dc3545}
@@ -38,6 +38,9 @@ ul li a.active {text-decoration: underline}
 #list_users thead tr th:nth-child(2) {width: 120px}
 #list_users tr td:nth-child(2) img {width: 80px}
 #nav-pagination .pagination {display: flex; justify-content: center}
+.button, .btn {margin: 0 4px}
+#widget-cart {width: auto; margin-top: 30px}
+
 
 @keyframes App-logo-spin {
   from {

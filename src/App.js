@@ -8,8 +8,10 @@ import Contact from './pages/Contact';
 import Account from './pages/Account';
 import Notfound from './pages/Notfound';
 import Menu from './components/Menu';
+import WidgetCart from './components/WidgetCart';
 import Login from './pages/Login';
 import SingleUser from './pages/SingleUser';
+import Shop from './pages/Shop';
 
 
 // function PrivateRoute({component: Component, ...rest}) {
@@ -27,6 +29,7 @@ class App extends React.Component {
       { path: '/', exact: true, main: () => <Home /> },
       { path: '/page/:page', exact: true, main: ({match}) => <Home match={match} /> },
       { path: '/about', exact: true, main: () => <About /> },
+      { path: '/shop', exact: true, main: () => <Shop /> },
       { path: '/news', exact: false, main: ({match}) => <News match={match} /> },
       { path: '/contact', exact: true, main: () => <Contact /> },
       { path: '/login', exact: true, main: () => <Login /> },
@@ -54,7 +57,10 @@ class App extends React.Component {
     return (
       <Router>
         <div className="container">
-          <Menu />
+          <div className="row">
+            <Menu />
+            <WidgetCart />
+          </div>
           <hr></hr>
           <div className="main">
             <Switch>

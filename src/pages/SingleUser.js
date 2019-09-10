@@ -14,7 +14,7 @@ class SingleUser extends Component {
 
     componentDidMount() {
         console.log('componentDidMount');
-        setTimeout(() => {this.props.fetchUser(this.state.user_id)}, 300)
+        setTimeout(() => {this.props.fetchUser(this.state.user_id)}, 0)
         // this.props.fetchUser(this.state.user_id);
     }
 

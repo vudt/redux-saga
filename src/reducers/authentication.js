@@ -17,7 +17,7 @@ export default (state = defaultState, action) => {
                 state.isLogged = true;
                 localStorage.setItem('authentication', JSON.stringify({ email: email, isLogged: true }))
             } else {
-                alert("Email or Password is not valid! Please try by EMAIL: vudang@gmail.com and PASSWORD: 123456");
+                alert("Email or Password is not valid! Please try by EMAIL: dangtuanvu1990@gmail.com and PASSWORD: 123456");
             }
             return { ...state };
         case types.USER_LOGOUT:

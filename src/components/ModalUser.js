@@ -10,19 +10,17 @@ class ModalUser extends Component {
         super(props)
         this.state = { showModal: this.props.showModal, user: null, isFetching: false }
         this.close = this.close.bind(this)
-        console.log(this.props)
     }
 
     close() {
-        console.log(this.state.showModal);
         this.setState({ isFetching: false, user: null })
         this.props.actToggleModal(!this.state.showModal);
     }
 
     componentWillReceiveProps(nextProps) {
         console.log(nextProps);
-        this.setState({ showModal: nextProps.showModal })
-        if (nextProps.user) {
+        this.setState({ user: null, showModal: nextProps.showModal })
+        if (nextProps.user && nextProps.showModal === true) {
             this.setState({ user: nextProps.user, isFetching: nextProps.isFetching })
         }
     }
