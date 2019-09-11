@@ -10,12 +10,10 @@ class WidgetCart extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.cart)
         this.setState({ cartData: this.props.cart })
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
         this.setState({ cartData: nextProps.cart })
     }
 
