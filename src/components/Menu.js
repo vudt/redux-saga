@@ -12,7 +12,7 @@ class Menu extends Component {
         let data = [
             { to: '', title: 'Home', exact: true },
             { to: 'about', title: 'About', exact: true },
-            { to: 'shop', title: 'Shop', exact: true },
+            // { to: 'shop', title: 'Shop', exact: true },
             { to: 'news', title: 'News', exact: false },
             { to: 'contact', title: 'Contact', exact: true },
             { to: 'login', title: 'Login', exact: true },
