@@ -18,6 +18,7 @@ export default (state = defaultState, action) => {
                     state.push(action.item)
                 }
             }
+            console.log(state)
             return state;
         case types.REMOVE_ITEM_CART:
             state = state.filter(el => el.id !== action.item.id)
