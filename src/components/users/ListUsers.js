@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchListUsers, actToggleModal, fetchUser, actAddToCart, actRemoveItem } from '../actions';
-import Pagination from './Pagination';
-import WidgetCart from './WidgetCart';
+import { fetchListUsers, actToggleModal, fetchUser, actAddToCart, actRemoveItem } from '../../actions';
+import Pagination from '../helpers/Pagination';
+import WidgetCart from '../helpers/WidgetCart';
 import ReactPaginate from 'react-paginate';
 import { BrowserRouter as Router, Route, Link, NavLink, Redirect } from "react-router-dom";
 

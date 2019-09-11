@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { actLogin } from '../actions';
+import { actLogin } from '../../actions';
 
 class FormLogin extends Component {
 

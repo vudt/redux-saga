@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
-import Category from '../components/Category';
-import ListArticles from '../components/ListArticles';
+import Category from '../components/categories/Category';
+import ListArticles from '../components/posts/ListArticles';
 class News extends Component {
 
     constructor(props) {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actLogin } from '../actions';
-import FormLogin from '../components/FormLogin';
+import FormLogin from '../components/forms/FormLogin';
 
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 

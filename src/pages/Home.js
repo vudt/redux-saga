@@ -1,76 +1,32 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { fetchListUsers } from '../actions';
-import ListUsers from '../components/ListUsers';
-import Pagination from '../components/Pagination';
-import ModalUser from '../components/ModalUser';
+import ListUsers from '../components/users/ListUsers';
+import ModalUser from '../components/modal/ModalUser';
 
 
 class Home extends Component {
 
     constructor(props) {
-        super(props);
-        this.state = { showModal: false }
-        this.close = this.close.bind(this)
-        this.open = this.open.bind(this)
-    }
-
-    componentWillMount() {
-
-        console.log('componentWillMount');
-    }
-
-    componentDidMount() {
-        console.log('componentDidMount');
-        // this.props.fetchListUsers(1);
-        // console.log(this.props.match.params)   
-    }
-
-    componentDidUpdate() {
-
+        super(props)
+        let currentPage = this.props.match ? this.props.match.params.page : 1
+        this.state = { currentPage: currentPage }
     }
 
     componentWillReceiveProps(nextProps) {
-        // console.log(this.props.match)
-        // if (nextProps.users_data) {
-        //     this.setState({ userData: nextProps.users_data })
-        // }
-    }
-
-    close() {
-        console.log(this.state)
-        this.setState({ showModal: false });
-    }
-
-    open() {
-        this.setState({ showModal: true });
+        console.log(nextProps)
+        if (nextProps.match) {
+            this.setState({ currentPage: nextProps.match.params.page })
+        }
     }
 
     render() {
-        let currentPage = 1
-        if (this.props.match) {
-            currentPage = this.props.match.params.page;
-        }
         return (
             <div className="main-content">
                 <h2>Home</h2>
-                <ListUsers currentPage={currentPage} />
+                <ListUsers currentPage={ this.state.currentPage } />
                 <ModalUser />
             </div>
         )
     }
 }
 
-function mapStateToProps(state, ownProps) {
-    return { users: state.users }
-}
-
-
-function mapDispatchToProps(dispatch, ownProps) {
-    return bindActionCreators({
-        fetchListUsers: fetchListUsers
-    }, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;

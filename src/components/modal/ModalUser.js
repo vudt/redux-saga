@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button, Modal } from 'react-bootstrap';
-import { actToggleModal } from '../actions';
+import { actToggleModal } from '../../actions';
 
 class ModalUser extends Component {
 
