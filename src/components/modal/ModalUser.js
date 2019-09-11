@@ -42,7 +42,6 @@ class ModalUser extends Component {
     }
 
     render() {
-        console.log(this.state)
         let elm = <p>Loading...</p>
         if (this.state.isFetching === true) {
             elm = this.render_user_information(this.state.user);

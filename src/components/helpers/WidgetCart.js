@@ -6,7 +6,6 @@ class WidgetCart extends Component {
     constructor(props) {
         super(props)
         this.state = { cartData: this.props.cart }
-        console.log(this.props.cart)
     }
 
     componentDidMount() {
@@ -18,7 +17,6 @@ class WidgetCart extends Component {
     }
 
     render() {
-        console.log(this.state)
         return (
             <ul id="widget-cart" className="navbar-right">
                 <li><a href="#" id="cart"><i className="fa fa-shopping-cart"></i> Cart <span className="badge">{ this.state.cartData.length }</span></a></li>
