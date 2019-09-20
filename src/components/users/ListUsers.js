@@ -12,7 +12,14 @@ class ListUsers extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { userData: null, showModal: this.props.showModal, cartData: this.props.cart, tracks: [], isFetching: false, hasMore: true }
+        this.state = { 
+            userData: null, 
+            list_users: null, 
+            showModal: this.props.showModal, 
+            cartData: this.props.cart, 
+            isFetching: false, 
+            hasMore: true
+        }
         this.openModal = this.openModal.bind(this);
         this.addToCart = this.addToCart.bind(this);
         this.loadMore = this.loadMore.bind(this);
@@ -70,74 +77,89 @@ class ListUsers extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
+        console.log(nextProps.users_data)
+        console.log(this.state.list_users)
         this.setState({ cartData: nextProps.cart })
-        // if (this.props.currentPage !== nextProps.currentPage) {
-        //     this.props.fetchListUsers(nextProps.currentPage);
-        // }
+        if (this.props.currentPage !== nextProps.currentPage) {
+            this.props.fetchListUsers(nextProps.currentPage);
+        }
+
         if (nextProps.users_data.data) {
-            // let hasMore = true
-            // if (nextProps.users_data.page === 2) {
-            //     hasMore = false
-            // }
             this.setState({ userData: nextProps.users_data, isFetching: true })
         }
+
+        // if (nextProps.users_data.data) {
+        //     let hasMore = true
+        //     if (nextProps.users_data.page === nextProps.users_data.total_pages) {
+        //         hasMore = false
+        //     }
+        //     this.setState({ 
+        //         userData: nextProps.users_data,
+        //         list_users: nextProps.list_users,
+        //         isFetching: true,
+        //         hasMore: hasMore
+        //     })
+        // }
     }
 
     componentDidMount() {
-        // this.props.fetchListUsers(this.props.currentPage); 
-        this.props.fetchListUsers(1);
+        this.props.fetchListUsers(this.props.currentPage); 
     }
 
     loadMore(page) {
         console.log('loadMore');
-        console.log(page);
-        this.props.fetchListUsers(2);
+        this.setState({ hasMore: false })
+        this.props.fetchListUsers(page + 1);
     }
-
+    
     render() {
+        console.log(this.state)
         let element = <tr><td colSpan='5'>No data.</td></tr>
         let paging = null;
         if (this.state.userData) {
             element = this.render_table_users(this.state.userData.data)
+            // element = this.render_table_users(this.state.list_users)
             paging = <Pagination totalPages={this.state.userData.total_pages} pageNumber={this.props.currentPage} />;
         }
-        let styles = {
-            height: '1000px',
-            overflow: 'auto',
-        };
-        console.log(this.state)
         return (
-
             <div className="wrap_tbl_users table-responsive">
-                <InfiniteScroll
-                    initialLoad={false}
-                    pageStart={0}
-                    loadMore={this.loadMore}
-                    hasMore={ this.state.hasMore }
-                    threshold={1500}
-                    loader={<div className="loader" key={0}>Loading ...</div>}>
-                    <table id="list_users" className="table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Avatar</th>
-                                <th>Fist Name</th>
-                                <th>Last Name</th>
-                                <th>Email</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>{element}</tbody>
-                    </table>
-                </InfiniteScroll>
+                <table id="list_users" className="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Avatar</th>
+                            <th>Fist Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>   
+                        { element }
+                    </tbody>
+                </table> 
+                { paging }
             </div>
+
+            // <InfiniteScroll
+            //         initialLoad={false}
+            //         pageStart={0}
+            //         loadMore={this.loadMore}
+            //         hasMore={ this.state.hasMore }
+            //         loader={<div className="loader" key={0}>Loading ...</div>}>
+            // </InfiniteScroll>
         );
     }
 }
 
 function mapStateToProps(state) {
-    return { users_data: state.users.data, showModal: state.showModal, cart: state.cart, isFetching: state.users.isFetching }
+    return { 
+        users_data: state.users.data, 
+        showModal: state.showModal, 
+        cart: state.cart, 
+        isFetching: state.users.isFetching,
+        list_users: state.users.items
+    }
 }
 
 function mapDispatchToProps(dispatch) {
