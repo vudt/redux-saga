@@ -8,7 +8,7 @@ if (defaultState) {
     defaultState = { email: null, isLogged: false }
 }
 
-export default (state = defaultState, action) => {
+export const Authentication = (state = defaultState, action) => {
     switch (action.type) {
         case types.USER_LOGIN:
             let { email, password } = action.payload;
@@ -25,5 +25,14 @@ export default (state = defaultState, action) => {
             return { ...state, email: null, isLogged: false };
         default:
             return state;
+    }
+}
+
+export const AccountInfo = (state = {}, action) => {
+    switch (action.type) {
+        case types.FETCHING_ACCOUNT_SUCCESS:
+            return action.data
+        default:
+            return state
     }
 }

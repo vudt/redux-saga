@@ -15,3 +15,12 @@ export const getUser = (id) => {
         })
         .catch((error) => { console.log(error) })
 }
+
+export const getAccount = (id) => {
+    return fetch('https://jsonplaceholder.typicode.com/users/' + id)
+        .then((response) => response.json())
+        .then((responseData) => {
+            return responseData;
+        })
+        .catch((error) => { console.log(error) })
+}

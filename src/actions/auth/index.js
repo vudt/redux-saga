@@ -10,3 +10,11 @@ export const actLogin = (email, password) => {
 export const actLogout = () => {
     return { type: types.USER_LOGOUT }
 }
+
+export const fetchAccount = (id) => {
+    return {
+        type: types.FETCHING_ACCOUNT,
+        id
+    }
+}
+
