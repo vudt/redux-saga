@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actLogout, fetchAccount, fetchPostsByUser } from '../actions';
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
+import BoxAccount from '../components/users/BoxAccount';
 
 class Account extends Component {
 
@@ -10,7 +11,12 @@ class Account extends Component {
         super(props)
         const authentication = this.props.authentication;
         if (authentication) {
-            this.state = { isLogged: authentication.isLogged, email: authentication.email, posts: null }
+            this.state = { 
+                isLogged: authentication.isLogged, 
+                email: authentication.email, 
+                posts: null,
+                accountInfo: null 
+            }
         }
         this.logout = this.logout.bind(this)
     }
@@ -25,24 +31,25 @@ class Account extends Component {
     }
 
     componentWillReceiveProps(nextProps){
-        console.log(nextProps);
         this.setState({
             isLogged: nextProps.authentication.isLogged, 
             email: nextProps.authentication.email,
-            posts: nextProps.posts
+            posts: nextProps.posts,
+            accountInfo: nextProps.account
         })
     }
 
     render_list_posts(posts){
         let xhtml = posts.map(item => {
             return (
-                <li key={ item.id } class="list-group-item">{ item.title }</li>
+                <li key={ item.id } className="list-group-item">{ item.title }</li>
             )
         })
         return xhtml
     }
 
     render() {
+        console.log(this.props.account)
         if (!this.state.isLogged) {
             return <Redirect to='/login' />
         }
@@ -50,13 +57,24 @@ class Account extends Component {
         if (this.state.posts) {
             posts = this.render_list_posts(this.state.posts)
         }
+        let boxAccount = null
+        if (this.state.accountInfo) {
+            boxAccount = <BoxAccount 
+                            id = { this.props.account.id }
+                            name = { this.props.account.name }
+                            email = { this.props.account.email }
+                            phone = { this.props.account.phone }
+                            website = { this.props.account.website } 
+                        />
+        }
         return (
             <div>
                 <h2>Welcome, { this.state.email }</h2>
                 <p><button className="btn btn-default" onClick={this.logout}>Logout</button></p>
+                { boxAccount }
                 <hr></hr>
                 <h4>List Posts</h4>
-                <ul class="list-group">
+                <ul className="list-group">
                     { posts }
                 </ul>
             </div>
